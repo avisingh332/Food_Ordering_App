@@ -1,0 +1,41 @@
+<div class="first">
+    <div class="col-md-6 offset-3 first-sub ">
+        <h1 class="text-white dynapuff-heading">Food App</h1>
+        <h3 class="text-white">Order Best Food & Drink in your locality</h3>
+        <input type="text" placeholder="Search for Restaurant" class="form-control mt-2">
+    </div>
+</div>
+
+<div class="row">
+    <ng-container *ngIf="!isLoading; else loader">
+        <div class="container px-5">
+            <div class="row mt-1 g-4 align-items-strech">
+                <div class="col col-12 col-md-4" *ngFor="let restaurant of restaurantList; let i= index">
+                    <div class="card h-100" [routerLink]="['/customer','restaurant', restaurant.id]"
+                        style="width: 18rem;">
+                        <div>
+                            <img src="{{restaurant.imageUrl}}" style="height: 30vh; object-fit: cover;" alt="...."
+                                class="card-img-top">
+                        </div>
+                        <!----------------- Card- Body --------------->
+                        <div class="card-body">
+                            <h5 class="card-title">{{restaurant.name}}</h5>
+                            <p class="card-text"> <i class="fa-solid fa-location-dot me-2"></i> {{restaurant.location}}
+                            </p>
+                            <p class="card-text">{{restaurant.cuisine}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </ng-container>
+    <ng-template #loader>
+        <div class="text-center mt-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </ng-template>
+</div>

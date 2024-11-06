@@ -1,0 +1,8 @@
+.hover-hand {
+    cursor: pointer;
+  }
+  
+  .hover-hand:hover {
+    background-color: #f0f0f0;
+    /* Replace with your desired color */
+  }

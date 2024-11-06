@@ -1,0 +1,21 @@
+.first{
+    height:60vh;
+    background-image: url('https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png');
+}
+.first-sub{
+    flex-direction: column;
+    display: flex;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.dynapuff-heading {
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 100px;
+    font-variation-settings:
+        "wdth" 100;
+}
