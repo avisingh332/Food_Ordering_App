@@ -22,5 +22,12 @@ export class RestaurantService {
   getRestaurantById(id:string){
     return this.http.get(`${this.baseApiUrl}/api/Restaurant/${id}`);
   }
-  
+
+  searchRestaurant(searchString:string){
+    return this.http.get(`${this.baseApiUrl}/api/Restaurant/Search?searchString=${searchString}`);
+  }
+
+  updateRestaurant(id:string, request:RestaurantCreateRequestType):Observable<any>{
+    return this.http.put(`${this.baseApiUrl}/api/Restaurant/${id}`, request);
+  }
 }

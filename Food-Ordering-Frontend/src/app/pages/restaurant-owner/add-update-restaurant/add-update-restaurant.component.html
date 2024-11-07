@@ -1,6 +1,5 @@
-<form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()" class="container mt-4 p-4 border rounded bg-light">
+<form [formGroup]="restaurantForm" (ngSubmit)="isUpdate?onUpdate():onSubmit()" class="container mt-4 p-4 border rounded bg-light">
     <h2 class="mb-4">Restaurant Form</h2>
-  
     <!-- Restaurant Details -->
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>
@@ -52,6 +51,6 @@
     <button type="button" class="btn btn-secondary mt-3" (click)="addMenu()">Add Menu Item</button>
   
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary mt-4" [disabled]="restaurantForm.invalid">Submit</button>
+    <button  type="submit" class="btn btn-primary mt-4" [disabled]="restaurantForm.invalid">Submit</button>
   </form>
   

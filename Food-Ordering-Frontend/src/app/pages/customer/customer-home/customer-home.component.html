@@ -2,7 +2,7 @@
     <div class="col-md-6 offset-3 first-sub ">
         <h1 class="text-white dynapuff-heading">Food App</h1>
         <h3 class="text-white">Order Best Food & Drink in your locality</h3>
-        <input type="text" placeholder="Search for Restaurant" class="form-control mt-2">
+        <input type="text" placeholder="Search for Restaurant" [(ngModel)]="searchString" (keyup.enter)="handleSearch()" class="form-control mt-2">
     </div>
 </div>
 

@@ -14,5 +14,7 @@ namespace FoodOrderingApp.Business.Services.IServices
         Task<IEnumerable<RestaurantGetResponseDto>> GetAllRestaurantsAsync(string userId, string roles);
         Task<RestaurantGetResponseDto> CreateRestaurantAsync(RestaurantPostRequestDto restaurantPostRequest, string userId);
         Task<RestaurantGetResponseDto> GetRestaurantById(Guid restaurantId,string roles);
+        Task<IEnumerable<RestaurantGetResponseDto>> SearchRestaurantsAsync(string? searchString = null);
+        Task<RestaurantGetResponseDto> UpdateRestaurantAsync(Guid restaurantId, RestaurantPostRequestDto restaurantPutRequest);
     }
 }

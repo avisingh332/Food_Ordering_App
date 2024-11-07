@@ -1,4 +1,5 @@
 export interface MenuCreateaRequestType {
+    id:string|null,
     dishName: string;
     price: number;
     imageUrl: string;

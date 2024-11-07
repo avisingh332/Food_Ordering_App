@@ -9,6 +9,6 @@ namespace FoodOrderingApp.Data.Repository.IRepository
 {
     public interface IRestaurantRepository : IRepository<Restaurant>
     {
-
+        Task<IEnumerable<Restaurant>> SearchRestaurantAsync(string? searchString);
     }
 }

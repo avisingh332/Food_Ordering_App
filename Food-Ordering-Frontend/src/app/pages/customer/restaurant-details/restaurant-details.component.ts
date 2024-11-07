@@ -34,83 +34,12 @@ export class RestaurantDetailsComponent implements OnInit {
     this.restaurantService.getRestaurantById(id).subscribe({
       next:(restaurant)=>{
         this.restaurantDetails = restaurant;
-        this.isLoading = true;
-        this.cartService.userCart$().subscribe({
-          next:(cart)=>{
-            this.userCart = cart;
-            this.processData();
-            this.isLoading = false;
-          },
-          error:(err)=>{
-            console.log(err);
-          }
-        })
+        this.restaurantService.restaurantDetails = restaurant;
+        this.isLoading = false;
       },
       error:(err)=>{
         console.log(err);
       }
     })
-    // combineLatest([this.restaurantService.getRestaurantById(id).pipe(
-    //   tap(restaurant => {
-    //     this.restaurantDetails = restaurant
-    //   })),
-    // this.cartService.userCart$().pipe(
-    //   tap(cart=>{
-    //     console.log("Cart is Updated!!!!");
-    //     this.userCart = cart;
-    //     if(!this.isLoading){
-    //       this.processData();
-    //     }
-    //   })
-    // )
-    // ]).subscribe({
-    //   next: ([restaurant, cart]) => {
-    //     // this.restaurantDetails = restaurant;
-    //     // this.userCart = cart;
-    //     this.processData();
-    //   },
-    //   error: (err) => {
-    //     console.log("There is some Error!!!!");
-    //     console.log(err);
-    //   }
-    // })
-
-    // this.restaurantService.getRestaurantById(id).subscribe({
-    //   next:(resp)=>{
-    //     this.restaurantDetails = resp;
-    //     this.isLoading= false;
-    //   }, 
-    //   error:(err)=>{
-    //     console.log(err);
-    //   }
-    // })
-  }
-
-  processData() {
-    let menus = this.restaurantDetails.menus as Array<any>;
-    this.restaurantDetails.menus = menus.map(m => {
-      let cartIndex = (this.userCart.cartItems as Array<any>).findIndex(ci=> ci.dishId == m.id);
-      let quantity = cartIndex!=-1 ? this.userCart.cartItems[cartIndex].quantity : 0;
-      return {
-        ...m,
-        quantity: quantity
-      }
-    })
-    // console.log("Menu data is ", this.restaurantDetails.menus);
-    // console.log("Cart itemss", this.userCart.cartItems);
-  }
-
-  updateCart(menu: any, isDecrement:boolean = false) {
-    let reqObj: CartItemCreateRequestType = {
-      cartId: this.userCart.id,
-      dishId: menu.id,
-      quantity:  isDecrement?-1:1,
-    }
-    // return;
-    this.cartService.addCartItem(reqObj).subscribe({
-      next: (cart) => {
-        this.cartService.getCart();
-      }
-    })
-  }
+  }  
 }

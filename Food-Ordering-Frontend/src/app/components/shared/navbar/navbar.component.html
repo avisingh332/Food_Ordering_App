@@ -11,7 +11,7 @@
                 <li *ngIf="user===undefined" class="nav-item">
                     <a class="nav-link" href='login'>Login</a>
                 </li>
-                <li *ngIf="user!=undefined" class="d-flex justify-content-center align-items-center">
+                <li *ngIf="user!=undefined && user.roles.includes('Customer')" class="d-flex justify-content-center align-items-center">
                     <i class="fa-solid text-danger fa-cart-shopping">
                         <span class="text-white" style="font-size:xx-small;">{{userCart && userCart.cartItems.length}}</span>
                     </i>

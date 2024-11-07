@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/models/response.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginComponent implements OnInit {
   formModel:FormGroup;
-  constructor(private authService: AuthService, private fb:FormBuilder, private router:Router) {
+  constructor(private authService: AuthService, private fb:FormBuilder,
+     private router:Router, private cartService:CartService) {
     this.formModel=this.fb.group({
       Email:['',Validators.compose([Validators.required,Validators.email])],
       Password:['',Validators.compose([Validators.required,Validators.nullValidator])]
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
           token : response.jwtToken, 
         });
         if(response.roles.includes('Customer')){
+          this.cartService.getCart();
           this.router.navigateByUrl('/customer/home')
         }
         else{

@@ -10,6 +10,7 @@ namespace FoodOrderingApp.Business.Dtos.Request
 {
     public class MenuPostRequestDto
     {
+        public Guid? Id { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 5)]

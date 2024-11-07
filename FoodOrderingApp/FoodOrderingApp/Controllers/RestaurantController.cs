@@ -27,9 +27,10 @@ namespace FoodOrderingApp.Api.Controllers
             var response = await _restaurantService.GetAllRestaurantsAsync(userId, roles);
             return Ok(response);
         }
+
         [HttpPost]
         [Authorize(Roles = "RestaurantOwner")]
-        public async Task<ActionResult<RestaurantGetResponseDto>> RegisterRestaurantAsync([FromBody] RestaurantPostRequestDto restaurantPostRequest)
+        public async Task<ActionResult<RestaurantGetResponseDto>> AddRestaurantAsync([FromBody] RestaurantPostRequestDto restaurantPostRequest)
         {
             var userId = User.GetUserId() ?? throw new UnauthorizedAccessException();
             var response = await _restaurantService.CreateRestaurantAsync(restaurantPostRequest, userId);
@@ -44,6 +45,23 @@ namespace FoodOrderingApp.Api.Controllers
             var userId = User.GetUserId();
             var roles = User.GetRole();
             var response = await _restaurantService.GetRestaurantById(id, roles);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Search")]
+        public async Task<ActionResult<IEnumerable<RestaurantGetResponseDto>>> SearchRestaurantsAsync([FromQuery]string searchString)
+        {
+            var response = await _restaurantService.SearchRestaurantsAsync(searchString);
+            return Ok(response);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles="RestaurantOwner")]
+        public async Task<ActionResult<RestaurantGetResponseDto>> UpdateRestaurantAsync([FromRoute]Guid id, [FromBody] RestaurantPostRequestDto request)
+        {
+            var response = await _restaurantService.UpdateRestaurantAsync(id, request);
             return Ok(response);
         }
     }
