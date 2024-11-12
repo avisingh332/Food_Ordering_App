@@ -14,7 +14,7 @@ namespace FoodOrderingApp.Data.Models
 
         [Required]
         [ForeignKey("Restaurant")]
-        public Guid RetaurantId { get; set; }
+        public Guid RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
 
         [Required]

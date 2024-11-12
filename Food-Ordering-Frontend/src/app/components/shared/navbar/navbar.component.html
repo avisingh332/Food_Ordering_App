@@ -11,9 +11,12 @@
                 <li *ngIf="user===undefined" class="nav-item">
                     <a class="nav-link" href='login'>Login</a>
                 </li>
-                <li *ngIf="user!=undefined && user.roles.includes('Customer')" class="d-flex justify-content-center align-items-center">
-                    <i class="fa-solid text-danger fa-cart-shopping">
-                        <span class="text-white" style="font-size:xx-small;">{{userCart && userCart.cartItems.length}}</span>
+                <li *ngIf="user!=undefined && user.roles.includes('Customer') && !isLoading "
+                    class="d-flex justify-content-center align-items-center">
+                    <i class="fa-solid text-danger fa-cart-shopping hover-hand" data-bs-toggle="modal"
+                        data-bs-target="#cartDetailsModal">
+                        <span class="text-white" style="font-size:xx-small;">{{userCart &&
+                            userCart.cartItems.length}}</span>
                     </i>
                 </li>
                 <li *ngIf="user!=undefined" class=" ms-2 nav-item dropdown">
@@ -23,10 +26,74 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item hover-hand" (click)="logout()">Logout</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Your Orders</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<ng-container *ngIf="!isLoading">
+    <!-- Modal -->
+
+    <div class="modal fade" id="cartDetailsModal" tabindex="-1" aria-labelledby="cartDetailsModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header p-2">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Order Summary</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ng-container *ngIf="userCart;else emptyCart">
+                        <div class="row">
+                            <p><span><strong>Cart for:</strong></span>{{userCart.restaurant.name}}</p>
+                        </div>
+                        <div class="row" style="max-height: 50vh; overflow-y: auto;">
+                            <div class="col-12" *ngFor="let cartItem of userCart.cartItems">
+                                <div class="rounded-2 p-2 d-flex flex-row mt-2 ">
+                                    <div>
+                                        <img src="{{cartItem.menu.imageUrl}}" alt="Card image cap"
+                                            style="width: 100%; height:15vh; object-fit: cover; border-radius: 0.5em;">
+                                    </div>
+                                    <div class="d-flex flex-row">
+                                        <div class="ms-2 d-flex flex-column">
+                                            <span><strong>{{cartItem.menu.dishName}}</strong></span>
+                                            <span>₹{{cartItem.menu.price}} </span>
+                                            <div class="d-flex flex-row">
+                                                <i *ngFor="let star of [].constructor(5); let index = index"
+                                                    class="fa-star" [ngClass]="index < 3 ? 'fa-solid' : 'fa-regular'">
+                                                </i>
+                                            </div>
+                                            <span class="text-muted">Best Ordered With Cold Drink</span>
+                                        </div>
+                                        <div class="d-flex justify-content-center align-items-center ms-5">
+                                            <div class="btn-group">
+                                                <i class="fa-solid bg-dark text-white p-2 rounded-3 fa-minus"
+                                                    (click)="updateCart(cartItem.menu, true)"></i>
+                                                <span class="fs-5 mx-2"> {{cartItem.quantity}} </span>
+                                                <i class="fa-solid bg-dark text-white p-2 rounded-3 fa-plus"
+                                                    (click)="updateCart(cartItem.menu)"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #emptyCart>
+                        Cart is Empty
+                    </ng-template>
+                </div>
+                <div class="modal-footer bg-danger d-flex justify-content-between px-2 py-1">
+                    <p *ngIf="userCart!=null">Order Total: <strong>{{userCart.cartTotal}} Rs</strong> </p>
+                    <div class="d-flex flex-row">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button *ngIf="userCart" type="button" class="btn btn-primary ms-2" (click)="placeOrder()">Place
+                            Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -160,24 +160,6 @@ namespace FoodOrderingApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Carts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Restaurants",
                 columns: table => new
                 {
@@ -198,6 +180,31 @@ namespace FoodOrderingApp.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -351,10 +358,10 @@ namespace FoodOrderingApp.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "252689ae-a44e-4b29-adf2-318392a1b0b2", 0, "744f27e9-7329-4827-8345-6508ffca380e", "owner1@test.com", false, "Owner 1", false, null, "OWNER1@TEST.COM", "OWNER1@TEST.COM", "AQAAAAIAAYagAAAAECsZNKFbjaS31mQ5SoxwGBfaaqcv8Jpwufnft+hT0XX1DuxdGqDWm1NvBuaVhO4rZQ==", null, false, "80697103-47f2-47df-aa77-10cef24f5117", false, "owner1@test.com" },
-                    { "37e72823-37e6-4707-8da5-33df881f0534", 0, "cf728f04-2221-4c5c-9f4d-343b6f31911b", "customer2@test.com", false, "Customer 2", false, null, "CUSTOMER2@TEST.COM", "CUSTOMER2@TEST.COM", "AQAAAAIAAYagAAAAEFfcy3qiW7PIPQtCh8kt85MeLEojnb5fmtVMd2zhKCvUIYZB/M1gIa6nZkhpWko5zA==", null, false, "cd9713d2-f5d5-4f1b-acb2-4353a85a76ba", false, "customer2@test.com" },
-                    { "6026617a-edc3-4815-b755-df14c1d3a79b", 0, "77df48a5-cab0-4f81-bf95-b0d71262bdf3", "customer1@test.com", false, "Customer 1", false, null, "CUSTOMER1@TEST.COM", "CUSTOMER1@TEST.COM", "AQAAAAIAAYagAAAAEA/javO4tKtTAmIAU2u9EFxcQbWER4eDUNER1sDGktwqc2nH1Kc/g/xptAs6zEAXgQ==", null, false, "7480fd73-238c-4919-841a-70382b5a889f", false, "customer1@test.com" },
-                    { "9e200011-e469-4eba-8f1c-9e9e20ba1e28", 0, "c7a99cc8-2ecb-4970-a580-8899736f6750", "owner2@test.com", false, "Owner 2", false, null, "OWNER2@TEST.COM", "OWNER2@TEST.COM", "AQAAAAIAAYagAAAAEEgg+GwCV0XbbuHo/mFma82u6BeAwH71KqATPntxtQROfeUqRsDZLGEeMtLrxHwApQ==", null, false, "0f6d0105-1671-4506-8ef7-b2d11fce10b3", false, "owner2@test.com" }
+                    { "03590656-cd6a-40c9-987f-da31638c5853", 0, "305637c8-95f3-4880-b2bb-a1c459d71d52", "owner2@test.com", false, "Owner 2", false, null, "OWNER2@TEST.COM", "OWNER2@TEST.COM", "AQAAAAIAAYagAAAAEEPgOOm1p52iFNo6qBtyW0Tyj/5ICqSwoDd9g6OCIWj/SnTDNtBbch5vNjyvjQk/qQ==", null, false, "14742f56-d6a5-4b3d-892c-96573d1b1809", false, "owner2@test.com" },
+                    { "1089d0d1-d559-4706-9011-c7d148d5f4f9", 0, "9efca563-04ca-4613-b606-238547eaf7b0", "customer2@test.com", false, "Customer 2", false, null, "CUSTOMER2@TEST.COM", "CUSTOMER2@TEST.COM", "AQAAAAIAAYagAAAAEISUudpOqRJqRzpO7eeLQxq5mshHJhjR2Wj5tZkikBzZOd82Zflf1+Fc/5G87/N9vg==", null, false, "2488bb87-92e4-4b16-8e22-987aa1ffff89", false, "customer2@test.com" },
+                    { "7bfbb923-0f8c-445f-9832-12f68c471df6", 0, "874e9a05-e396-46ef-bb3f-1d1871883e0b", "customer1@test.com", false, "Customer 1", false, null, "CUSTOMER1@TEST.COM", "CUSTOMER1@TEST.COM", "AQAAAAIAAYagAAAAEAkJTkdWBKVLGYd1AAb9OY7iJ+NTfOFu/Nb6LWvuWoukpjs6RYy2Aa715CxjfMesCQ==", null, false, "3023dcff-bcbe-482d-aa17-f0e139e01060", false, "customer1@test.com" },
+                    { "815ee3d0-b444-4ee2-86a0-806c1611a282", 0, "d945bd11-ce48-4425-a89f-a4b827b40830", "owner1@test.com", false, "Owner 1", false, null, "OWNER1@TEST.COM", "OWNER1@TEST.COM", "AQAAAAIAAYagAAAAENnoXjmn4PfsHXqBBoI5n8UEJPfsG2zDpoZpwdMPPaZ+eM9uDq0EquWl1W+hG8bmpA==", null, false, "5c619e63-eeea-41a2-ad00-3d335e8e0f1b", false, "owner1@test.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -362,10 +369,10 @@ namespace FoodOrderingApp.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a", "252689ae-a44e-4b29-adf2-318392a1b0b2" },
-                    { "95cb1e1c-d8b6-45a2-b240-6d211c06fd00", "37e72823-37e6-4707-8da5-33df881f0534" },
-                    { "95cb1e1c-d8b6-45a2-b240-6d211c06fd00", "6026617a-edc3-4815-b755-df14c1d3a79b" },
-                    { "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a", "9e200011-e469-4eba-8f1c-9e9e20ba1e28" }
+                    { "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a", "03590656-cd6a-40c9-987f-da31638c5853" },
+                    { "95cb1e1c-d8b6-45a2-b240-6d211c06fd00", "1089d0d1-d559-4706-9011-c7d148d5f4f9" },
+                    { "95cb1e1c-d8b6-45a2-b240-6d211c06fd00", "7bfbb923-0f8c-445f-9832-12f68c471df6" },
+                    { "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a", "815ee3d0-b444-4ee2-86a0-806c1611a282" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -416,6 +423,11 @@ namespace FoodOrderingApp.Data.Migrations
                 name: "IX_CartItems_DishId",
                 table: "CartItems",
                 column: "DishId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_RestaurantId",
+                table: "Carts",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_UserId",

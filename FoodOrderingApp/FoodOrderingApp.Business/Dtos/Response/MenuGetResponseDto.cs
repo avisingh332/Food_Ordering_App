@@ -12,7 +12,7 @@ namespace FoodOrderingApp.Business.Dtos.Response
     public class MenuGetResponseDto
     {
         public Guid Id { get; set; }
-        public Guid RetaurantId { get; set; }
+        public Guid RestaurantId { get; set; }
         public RestaurantGetResponseDto Restaurant { get; set; }
 
         public string DishName { get; set; }
@@ -25,7 +25,7 @@ namespace FoodOrderingApp.Business.Dtos.Response
         public MenuGetResponseDto(Menu menu)
         {
             this.Id = menu.Id;
-            this.RetaurantId = menu.RetaurantId;
+            this.RestaurantId = menu.RestaurantId;
             this.DishName = menu.DishName;
             this.Price = menu.Price;
             this.ImageUrl = menu.ImageUrl;

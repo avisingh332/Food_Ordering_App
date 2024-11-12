@@ -20,7 +20,7 @@ namespace FoodOrderingApp.Api.Controllers
         }
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<CartGetResponseDto>> GetCartAsync()
+        public async Task<ActionResult<CartGetResponseDto?>> GetCartAsync()
         {
             var userId = User.GetUserId() ?? throw new UnauthorizedAccessException();
             var response =await _cartService.GetCustomerCartAsync(userId);
@@ -31,7 +31,8 @@ namespace FoodOrderingApp.Api.Controllers
         [Authorize]
         public async Task<ActionResult<CartGetResponseDto>> UpsertCartAsync([FromBody] CartItemPostRequestDto request)
         {
-            var response = await _cartService.AddCartItemAsync(request);
+            string userId = User.GetUserId() ??throw new UnauthorizedAccessException();
+            var response = await _cartService.AddCartItemAsync(request, userId);
             return Ok(response);
         }
     }

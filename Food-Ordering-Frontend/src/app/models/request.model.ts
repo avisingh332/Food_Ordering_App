@@ -13,7 +13,7 @@ export interface RestaurantCreateRequestType {
     menus: MenuCreateaRequestType[];
 }
 export interface CartItemCreateRequestType{
-    cartId:string, 
+    restaurantId:string, 
     dishId:string, 
     quantity:number
 }

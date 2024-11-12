@@ -9,11 +9,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./owner-home.component.css']
 })
 export class OwnerHomeComponent implements OnInit {
+
   restaurantDetails:any;
   isLoading:boolean=true;
   constructor(private restaurantService:RestaurantService, private router:Router ) {}
   ngOnInit(): void {
     this.getRestaurantDetails();
+    // this.restaurantService.ownerRestaurantDetails$().subscribe({
+    //   next:(val)=>{
+    //     if(val!=null || val != undefined){
+    //       this.restaurantDetails = val;
+    //     }
+    //   }
+    // })
   }
 
   getRestaurantDetails(){

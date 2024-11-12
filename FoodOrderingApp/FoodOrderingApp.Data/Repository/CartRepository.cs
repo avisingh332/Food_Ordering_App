@@ -23,7 +23,7 @@ namespace FoodOrderingApp.Data.Repository
             IQueryable<Cart> query = _db.Carts;
             if (query != null) query = query.Where(filter);
            
-            query = query.Include(c=> c.CartItems).ThenInclude(ci => ci.Menu);
+            query = query.Include(c=> c.Restaurant).Include(c=> c.CartItems).ThenInclude(ci => ci.Menu);
 
             Cart result = await query.FirstOrDefaultAsync();
 

@@ -4,25 +4,26 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../models/response.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthService  {
+export class AuthService {
 
-  private user = new BehaviorSubject<User|undefined>(undefined);
+  private user = new BehaviorSubject<User | undefined>(undefined);
 
   baseApiUrl = environment.API_URL;
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient, private router:Router) {
     var user = this.getUser();
-    if(user!=undefined){
+    if (user != undefined) {
       this.setUser(user);
     }
   }
 
-  user$():Observable<User|undefined>{
+  user$(): Observable<User | undefined> {
     return this.user.asObservable();
   }
 
@@ -37,28 +38,28 @@ export class AuthService  {
   }
 
   getUser(): User | undefined {
-    const email = localStorage.getItem('user-email'); 
-    const roles = localStorage.getItem('user-roles'); 
+    const email = localStorage.getItem('user-email');
+    const roles = localStorage.getItem('user-roles');
     const name = localStorage.getItem('name');
     const token = localStorage.getItem('token');
     const userid = localStorage.getItem('user-id');
-    if(email && roles && name && token && userid){
-      const user : User = {
-        userId:userid,
+    if (email && roles && name && token && userid) {
+      const user: User = {
+        userId: userid,
         email: email,
         roles: roles.split(','),
         name: name,
-        token : token,
+        token: token,
       };
 
       return user;
     }
     return undefined;
   }
- 
- 
 
-  login(loginDetail: any): Observable<LoginResponse>{
+
+
+  login(loginDetail: any): Observable<LoginResponse> {
     return this.http.post<any>(`${this.baseApiUrl}/api/Auth/Login`, loginDetail).pipe(
       map((resp) => {
         if (resp.isSuccess) {

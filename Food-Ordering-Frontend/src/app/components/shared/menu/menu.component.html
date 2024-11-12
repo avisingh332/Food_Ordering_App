@@ -18,7 +18,7 @@
               </div>
               <div *ngIf="isCustomer" class="d-flex justify-content-center align-items-center ms-5">
                   <ng-container *ngIf="menu.quantity==0;else updateQuantity">
-                      <button class="btn btn-danger" (click)="updateCart(menu)" >Add to Cart</button>
+                      <button class="btn btn-danger" (click)="updateCart(menu)">Add to Cart</button>
                   </ng-container>
                   <ng-template #updateQuantity>
                       <div class="btn-group">

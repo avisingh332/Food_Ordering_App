@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrderingApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241104081322_Initial Migration")]
+    [Migration("20241107101614_Initial Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -96,69 +96,69 @@ namespace FoodOrderingApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6026617a-edc3-4815-b755-df14c1d3a79b",
+                            Id = "7bfbb923-0f8c-445f-9832-12f68c471df6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "77df48a5-cab0-4f81-bf95-b0d71262bdf3",
+                            ConcurrencyStamp = "874e9a05-e396-46ef-bb3f-1d1871883e0b",
                             Email = "customer1@test.com",
                             EmailConfirmed = false,
                             FullName = "Customer 1",
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER1@TEST.COM",
                             NormalizedUserName = "CUSTOMER1@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA/javO4tKtTAmIAU2u9EFxcQbWER4eDUNER1sDGktwqc2nH1Kc/g/xptAs6zEAXgQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAkJTkdWBKVLGYd1AAb9OY7iJ+NTfOFu/Nb6LWvuWoukpjs6RYy2Aa715CxjfMesCQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7480fd73-238c-4919-841a-70382b5a889f",
+                            SecurityStamp = "3023dcff-bcbe-482d-aa17-f0e139e01060",
                             TwoFactorEnabled = false,
                             UserName = "customer1@test.com"
                         },
                         new
                         {
-                            Id = "37e72823-37e6-4707-8da5-33df881f0534",
+                            Id = "1089d0d1-d559-4706-9011-c7d148d5f4f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf728f04-2221-4c5c-9f4d-343b6f31911b",
+                            ConcurrencyStamp = "9efca563-04ca-4613-b606-238547eaf7b0",
                             Email = "customer2@test.com",
                             EmailConfirmed = false,
                             FullName = "Customer 2",
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER2@TEST.COM",
                             NormalizedUserName = "CUSTOMER2@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFfcy3qiW7PIPQtCh8kt85MeLEojnb5fmtVMd2zhKCvUIYZB/M1gIa6nZkhpWko5zA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEISUudpOqRJqRzpO7eeLQxq5mshHJhjR2Wj5tZkikBzZOd82Zflf1+Fc/5G87/N9vg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd9713d2-f5d5-4f1b-acb2-4353a85a76ba",
+                            SecurityStamp = "2488bb87-92e4-4b16-8e22-987aa1ffff89",
                             TwoFactorEnabled = false,
                             UserName = "customer2@test.com"
                         },
                         new
                         {
-                            Id = "252689ae-a44e-4b29-adf2-318392a1b0b2",
+                            Id = "815ee3d0-b444-4ee2-86a0-806c1611a282",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "744f27e9-7329-4827-8345-6508ffca380e",
+                            ConcurrencyStamp = "d945bd11-ce48-4425-a89f-a4b827b40830",
                             Email = "owner1@test.com",
                             EmailConfirmed = false,
                             FullName = "Owner 1",
                             LockoutEnabled = false,
                             NormalizedEmail = "OWNER1@TEST.COM",
                             NormalizedUserName = "OWNER1@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECsZNKFbjaS31mQ5SoxwGBfaaqcv8Jpwufnft+hT0XX1DuxdGqDWm1NvBuaVhO4rZQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENnoXjmn4PfsHXqBBoI5n8UEJPfsG2zDpoZpwdMPPaZ+eM9uDq0EquWl1W+hG8bmpA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "80697103-47f2-47df-aa77-10cef24f5117",
+                            SecurityStamp = "5c619e63-eeea-41a2-ad00-3d335e8e0f1b",
                             TwoFactorEnabled = false,
                             UserName = "owner1@test.com"
                         },
                         new
                         {
-                            Id = "9e200011-e469-4eba-8f1c-9e9e20ba1e28",
+                            Id = "03590656-cd6a-40c9-987f-da31638c5853",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c7a99cc8-2ecb-4970-a580-8899736f6750",
+                            ConcurrencyStamp = "305637c8-95f3-4880-b2bb-a1c459d71d52",
                             Email = "owner2@test.com",
                             EmailConfirmed = false,
                             FullName = "Owner 2",
                             LockoutEnabled = false,
                             NormalizedEmail = "OWNER2@TEST.COM",
                             NormalizedUserName = "OWNER2@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEgg+GwCV0XbbuHo/mFma82u6BeAwH71KqATPntxtQROfeUqRsDZLGEeMtLrxHwApQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEPgOOm1p52iFNo6qBtyW0Tyj/5ICqSwoDd9g6OCIWj/SnTDNtBbch5vNjyvjQk/qQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0f6d0105-1671-4506-8ef7-b2d11fce10b3",
+                            SecurityStamp = "14742f56-d6a5-4b3d-892c-96573d1b1809",
                             TwoFactorEnabled = false,
                             UserName = "owner2@test.com"
                         });
@@ -170,11 +170,16 @@ namespace FoodOrderingApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("RestaurantId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -506,22 +511,22 @@ namespace FoodOrderingApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6026617a-edc3-4815-b755-df14c1d3a79b",
+                            UserId = "7bfbb923-0f8c-445f-9832-12f68c471df6",
                             RoleId = "95cb1e1c-d8b6-45a2-b240-6d211c06fd00"
                         },
                         new
                         {
-                            UserId = "37e72823-37e6-4707-8da5-33df881f0534",
+                            UserId = "1089d0d1-d559-4706-9011-c7d148d5f4f9",
                             RoleId = "95cb1e1c-d8b6-45a2-b240-6d211c06fd00"
                         },
                         new
                         {
-                            UserId = "252689ae-a44e-4b29-adf2-318392a1b0b2",
+                            UserId = "815ee3d0-b444-4ee2-86a0-806c1611a282",
                             RoleId = "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a"
                         },
                         new
                         {
-                            UserId = "9e200011-e469-4eba-8f1c-9e9e20ba1e28",
+                            UserId = "03590656-cd6a-40c9-987f-da31638c5853",
                             RoleId = "1a0d5c4c-6b0e-4b7b-8b5e-4a3d6c5c7b8a"
                         });
                 });
@@ -547,11 +552,19 @@ namespace FoodOrderingApp.Data.Migrations
 
             modelBuilder.Entity("FoodOrderingApp.Data.Models.Cart", b =>
                 {
+                    b.HasOne("FoodOrderingApp.Data.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("FoodOrderingApp.Data.Models.ApplicationUser", "User")
                         .WithOne("Cart")
                         .HasForeignKey("FoodOrderingApp.Data.Models.Cart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Restaurant");
 
                     b.Navigation("User");
                 });

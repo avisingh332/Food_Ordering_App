@@ -1,1 +1,101 @@
-<p>orders works!</p>
+<div class="row" style="min-height: 50vh;">
+    <div class="col-md-4" style="border-right: 1px solid black;">
+        <h3 class="text-center">New Order</h3>
+        <div *ngFor="let order of orders;let i=index">
+            <div *ngIf="order.orderStatus === allStatus.Placed">
+                <!-- Display order details here -->
+                <div class="border rounded-2 p-2 d-flex flex-column justify-content-between hover-hand-transition hover align-items-center" (click)="openOrderDetails(order)"  data-bs-toggle="modal" data-bs-target="#orderDetailsModal" >
+                    <p>Placed by:<strong>{{order.user.name}}</strong></p>
+                    <p> <span *ngFor="let item of order.orderItems">{{item.quantity}}-{{item.menu.dishName}}</span> </p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4  text-center " style="border-right: 1px solid black;">
+        <h3>Preparing</h3>
+        <div *ngFor="let order of orders;let i=index">
+            <div *ngIf="order.orderStatus === allStatus.Preparing">
+                <!-- Display order details here -->
+                <div class="border rounded-2 p-2 d-flex flex-row justify-content-between align-items-center" (click)="openOrderDetails(order)"  data-bs-toggle="modal" data-bs-target="#orderDetailsModal" >
+                    <p>Placed by:<strong>{{order.user.name}}</strong></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4  text-center ">
+        <h3>Ready for Pickup</h3>
+        <div *ngFor="let order of orders;let i=index">
+            <div *ngIf="order.orderStatus === allStatus.Ready">
+                <!-- Display order details here -->
+                <div class="border rounded-2 p-2 d-flex flex-row justify-content-between align-items-center" (click)="openOrderDetails(order)"  data-bs-toggle="modal" data-bs-target="#orderDetailsModal" >
+                    <p>Placed by:<strong>{{order.user.name}}</strong></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Order Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+            <div *ngIf="selectedOrder!=null" >
+                <div class="row py-0">
+                    <p>Order From: <strong>{{selectedOrder.user.name}}</strong></p>
+                </div>
+                <div class="row" style="max-height: 50vh; overflow-y: auto;">
+                    <div class="col-12" *ngFor="let orderItem of selectedOrder.orderItems">
+                        <div class="rounded-2 p-2 d-flex flex-row mt-2 ">
+                            <div>
+                                <img src="{{orderItem.menu.imageUrl}}" alt="Card image cap"
+                                    style="width: 100%; height:15vh; object-fit: cover; border-radius: 0.5em;">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="ms-2 d-flex flex-column">
+                                    <span><strong>{{orderItem.menu.dishName}}</strong></span>
+                                    <span>₹{{orderItem.menu.price* orderItem.quantity}} </span>
+                                    <div class="d-flex flex-row">
+                                        <i *ngFor="let star of [].constructor(5); let index = index" class="fa-star"
+                                            [ngClass]="index < 3 ? 'fa-solid' : 'fa-regular'">
+                                        </i>
+                                    </div>
+                                    <span>Quantity: <strong>{{orderItem.quantity}}</strong></span>
+                                    <span class="text-muted">Best Ordered With Cold Drink</span>
+                                </div>
+                                <!-- <div class="d-flex justify-content-center align-items-center ms-5">
+                                    <div class="btn-group">
+                                        <i class="fa-solid bg-dark text-white p-2 rounded-3 fa-minus"
+                                            (click)="updateCart(cartItem.menu, true)"></i>
+                                        <span class="fs-5 mx-2"> {{cartItem.quantity}} </span>
+                                        <i class="fa-solid bg-dark text-white p-2 rounded-3 fa-plus"
+                                            (click)="updateCart(cartItem.menu)"></i>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between px-2 py-1">
+            <ng-container *ngIf="selectedOrder!=null">
+                <p>Order Total: {{selectedOrder.orderTotal}} <strong> Rs</strong> </p>
+                <div class="d-flex flex-row">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button data-bs-dismiss="modal" *ngIf="selectedOrder.orderStatus == allStatus.Placed"  class="btn btn-primary ms-2" (click)="updateOrderStatus(allStatus.Preparing)">Accept Order</button>
+                    <button data-bs-dismiss="modal" *ngIf="selectedOrder.orderStatus == allStatus.Preparing" class="btn btn-primary ms-2" (click)="updateOrderStatus(allStatus.Ready)">Order Ready</button>
+                    <button data-bs-dismiss="modal" *ngIf="selectedOrder.orderStatus == allStatus.Ready" class="btn btn-primary ms-2" (click)="updateOrderStatus(allStatus.Delivered)">Delivered</button>
+                </div>
+            </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>

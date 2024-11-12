@@ -12,7 +12,7 @@ namespace FoodOrderingApp.Business.Dtos.Request
     public class CartItemPostRequestDto
     {
         [Required]
-        public Guid CartId { get; set; }
+        public Guid RestaurantId { get; set; }
 
         [Required]
         public Guid DishId { get; set; }

@@ -3,11 +3,17 @@ import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import Swal from 'sweetalert2';
+import { RoutingService } from '../services/routing.service';
+import { Location } from '@angular/common';
 
 export const authGuard: CanActivateFn = (route, state) => {
+  console.log("Auth Guard is Working");
   const authService = inject(AuthService)
-  const router = inject(Router)
+  const router = inject(Router);
+  // const routingService = inject(RoutingService);
+  const location = inject(Location);
   const user = authService.getUser();
+  console.log("User in Auth Guard", user);
   if (user) {
     const decodedToken: any = jwtDecode(user.token);
     const expirationDate = decodedToken.exp * 1000;
@@ -18,10 +24,21 @@ export const authGuard: CanActivateFn = (route, state) => {
       return router.navigate(['/login'])
     }
     else {
-      if (user.roles.includes('Organizer')) {
+      if (user.roles.includes('RestaurantOwner')) {
         return true;
       } else {
-        router.navigate(route.url);
+        // console.log("Doesn't include the role");
+        // router.navigate(['/login']);
+        Swal.fire({
+          position: "top-end",
+          icon: "warning",
+          title: "Unauthorized Access",
+          showConfirmButton: false,
+          timer: 1500, 
+          toast:true,
+        });
+        // let backUrl:string  = routingService.buildBackUrl(route);
+        location.back();
         return false;
       }
     }

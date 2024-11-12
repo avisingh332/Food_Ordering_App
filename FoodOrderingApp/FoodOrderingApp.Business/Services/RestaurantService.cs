@@ -17,13 +17,15 @@ namespace FoodOrderingApp.Business.Services
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IMenuRepository _menuRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly ApplicationDbContext _db;
-        public RestaurantService(IRestaurantRepository restaurantRepository, IMenuRepository menuRepository, ApplicationDbContext db)
+        public RestaurantService(IRestaurantRepository restaurantRepository, IMenuRepository menuRepository, ApplicationDbContext db, IOrderRepository orderRepository)
         {
             _restaurantRepository = restaurantRepository;
             _menuRepository = menuRepository;
-            
+
             _db = db;
+            _orderRepository = orderRepository;
         }
 
         public async Task<IEnumerable<RestaurantGetResponseDto>> GetAllRestaurantsAsync(string userId, string roles)
@@ -35,25 +37,32 @@ namespace FoodOrderingApp.Business.Services
                 restaurants = await _db.Restaurants.Where(r => r.OwnerId == userId)
                     .Include(r => r.Owner)
                     .Include(r => r.Menus)
-                    .Include(r => r.Orders)
-                        .ThenInclude(o => o.OrderItems)
-                            .ThenInclude(oi => oi.Menu)
-                    .Include(r=>r.Reviews)
+                    .Include(r=>r.Orders).ThenInclude(or=> or.User)
+                    .Include(r=> r.Orders)
+                        .ThenInclude(or=>or.OrderItems)
                     .ToListAsync();
-                //foreach( var restaurant in restaurants)
-                //{
-                //    foreach(var order in restaurant.Orders)
-                //    {
-                //        var updatedOrder  = await _orderRepository.GetAsync(o => order.Id == o.Id, includeProperties: "OrderItems");
-                //        order.OrderItems = updatedOrder.OrderItems;
-                //    }
-                //}
+                foreach(var res in restaurants)
+                {
+                    foreach(var menu in res.Menus)
+                    {
+                        menu.Restaurant = null;
+                    }
+                    foreach(var order in res.Orders)
+                    {
+                        order.Restaurant = null;
+                        foreach(var oi in order.OrderItems)
+                        {
+                            oi.Menu.Restaurant = null;
+                        }
+                    }
+                }
             }
             else
             {
                 restaurants = await _restaurantRepository.GetAllAsync(includeProperties: "Owner,Menus");
             }
             var response = restaurants.Select(r => new RestaurantGetResponseDto(r));
+
             return response;
         }
 
@@ -75,7 +84,7 @@ namespace FoodOrderingApp.Business.Services
                 var menuToBeAdded = new Menu
                 {
                     Id = Guid.NewGuid(),
-                    RetaurantId = restaurantId,
+                    RestaurantId = restaurantId,
                     DishName = menu.DishName,
                     Price = menu.Price,
                     ImageUrl = menu.ImageUrl,
@@ -92,6 +101,19 @@ namespace FoodOrderingApp.Business.Services
                             .ThenInclude(oi => oi.Menu)
                     .Include(r => r.Reviews)
                     .FirstOrDefaultAsync();
+
+            foreach (var menu in restaurant.Menus)
+            {
+                menu.Restaurant = null;
+            }
+            foreach (var order in restaurant.Orders)
+            {
+                order.Restaurant = null;
+                foreach (var oi in order.OrderItems)
+                {
+                    oi.Menu.Restaurant = null;
+                }
+            }
             var response = new RestaurantGetResponseDto(addedRestaurant);
             return response;
         }
@@ -102,6 +124,20 @@ namespace FoodOrderingApp.Business.Services
             if (roles.Contains("RestaurantOwner"))
             {
                 var restaurant =await  _restaurantRepository.GetAsync(r => r.Id == restaurantId,includeProperties:"Owner,Menus,Orders,Reviews");
+               
+                foreach (var menu in restaurant.Menus)
+                {
+                    menu.Restaurant = null;
+                }
+                foreach (var order in restaurant.Orders)
+                {
+                    order.Restaurant = null;
+                    foreach (var oi in order.OrderItems)
+                    {
+                        oi.Menu.Restaurant = null;
+                    }
+                }
+                
                 var response = new RestaurantGetResponseDto(restaurant);
                 return response;
             }
@@ -163,7 +199,7 @@ namespace FoodOrderingApp.Business.Services
                     var newMenu = new Menu
                     {
                         Id = Guid.NewGuid(),
-                        RetaurantId = restaurantId,
+                        RestaurantId = restaurantId,
                         DishName = menuDto.DishName,
                         Price = menuDto.Price,
                         ImageUrl = menuDto.ImageUrl,
@@ -184,6 +220,18 @@ namespace FoodOrderingApp.Business.Services
                             .ThenInclude(oi => oi.Menu)
                     .Include(r => r.Reviews)
                     .FirstOrDefaultAsync();
+            foreach (var menu in restaurant.Menus)
+            {
+                menu.Restaurant = null;
+            }
+            foreach (var order in restaurant.Orders)
+            {
+                order.Restaurant = null;
+                foreach (var oi in order.OrderItems)
+                {
+                    oi.Menu.Restaurant = null;
+                }
+            }
             var response = new RestaurantGetResponseDto(updatedRestaurant);
             return response;
         }

@@ -8,13 +8,13 @@ import { LoginComponent } from './pages/shared/login/login.component';
 import { CustomerHomeComponent } from './pages/customer/customer-home/customer-home.component';
 import { AddUpdateRestaurantComponent } from './pages/restaurant-owner/add-update-restaurant/add-update-restaurant.component';
 import { RestaurantDetailsComponent } from './pages/customer/restaurant-details/restaurant-details.component';
-import { HomePathRedirection } from './guards/auth.guard';
+import { authGuard, HomePathRedirection } from './guards/auth.guard';
 
 
 const routes: Routes = [
   {path:'', canActivate:[HomePathRedirection], component:CustomerHomeComponent},
   {path:'login', component:LoginComponent, canActivate:[HomePathRedirection]},
-  {path:'restaurant-owner', children:[
+  {path:'restaurant-owner', canActivateChild:[authGuard], children:[
     {path:'home', component:OwnerHomeComponent, children:[
       {path: '', redirectTo: 'orders', pathMatch: 'full' },
       {path:'menu', component:MenuComponent},

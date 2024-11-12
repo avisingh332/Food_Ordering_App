@@ -12,6 +12,8 @@ namespace FoodOrderingApp.Business.Dtos.Response
     {
         public Guid Id { get; set; }
         public string UserId { get; set; }
+        public Guid RestaurantId { get; set; }
+        public RestaurantGetResponseDto Restaurant { get; set; }
         public UserGetResponseDto User { get; set; }
         public ICollection<CartItemGetResponseDto> CartItems { get; set; } = new List<CartItemGetResponseDto>();
 
@@ -19,9 +21,14 @@ namespace FoodOrderingApp.Business.Dtos.Response
         {
             this.Id = cart.Id;
             this.UserId = cart.UserId;
+            this.RestaurantId = cart.RestaurantId;
             if(cart.User != null)
             {
                 this.User = new UserGetResponseDto(cart.User);
+            }
+            if(cart.Restaurant != null)
+            {
+                this.Restaurant = new RestaurantGetResponseDto(cart.Restaurant);
             }
             if(cart.CartItems != null && cart.CartItems.Count>0)
             {

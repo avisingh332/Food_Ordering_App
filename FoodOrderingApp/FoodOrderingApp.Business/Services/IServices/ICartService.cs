@@ -11,6 +11,6 @@ namespace FoodOrderingApp.Business.Services.IServices
     public interface ICartService
     {
         Task<CartGetResponseDto> GetCustomerCartAsync(string userId);
-        Task<CartGetResponseDto> AddCartItemAsync(CartItemPostRequestDto request);
+        Task<CartGetResponseDto> AddCartItemAsync(CartItemPostRequestDto request,string userId);
     }
 }

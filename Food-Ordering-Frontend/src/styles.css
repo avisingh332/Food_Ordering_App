@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.hover-hand {
+  cursor: pointer;
+}
+
+.hover-hand-transition {
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.hover-hand-transition:hover {
+  background-color: #f0f0f0;
+  size: 2ex;
+  transform: scale(1.1);
+  /* Replace with your desired color */
+}

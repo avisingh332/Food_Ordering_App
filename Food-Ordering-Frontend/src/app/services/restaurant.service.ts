@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environment/environment';
 import { RestaurantCreateRequestType } from '../models/request.model';
 
@@ -8,8 +8,19 @@ import { RestaurantCreateRequestType } from '../models/request.model';
   providedIn: 'root'
 })
 export class RestaurantService {
+  // private ownerRestaurantDetails= new BehaviorSubject<any>(undefined);
   restaurantDetails:any;
   baseApiUrl = environment.API_URL;
+
+  // setOwnerRestaurantDetails(restaurantDetails:any){
+  //   this.ownerRestaurantDetails.next(restaurantDetails);
+  // }
+
+  // ownerRestaurantDetails$():Observable<any>{
+    
+  //     return this.ownerRestaurantDetails.asObservable();
+    
+  // }
   constructor(private http:HttpClient) { }
 
   getAllRestaurants():Observable<any>{
