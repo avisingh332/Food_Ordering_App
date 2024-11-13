@@ -25,14 +25,16 @@ namespace FoodOrderingApp.Data.Models
         [ForeignKey("Restaurant")]
         [Required]
         public Guid RestaurantId { get; set; }
-        [ForeignKey("Menu")]
-        [Required]
-        public Guid DishId { get; set; }
+
+        public Guid? ParentId { get; set; }
 
         //navigation Property 
         public ApplicationUser Customer { get; set; }
         public Restaurant Restaurant { get; set; }
-        public Menu Menu { get; set; }
+
+        public Review ParentReview { get; set; }
+
+        public ICollection<Review> ChildReviews { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
 

@@ -161,9 +161,15 @@ namespace FoodOrderingApp.Data
                 .WithMany(r => r.Reviews)
                 .HasForeignKey(r => r.RestaurantId)
                 .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasOne(r => r.Customer)
                 .WithMany()
                 .HasForeignKey(r => r.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(r=> r.ParentReview)
+                .WithMany(r=> r.ChildReviews)
+                .HasForeignKey(r=> r.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
             builder.Entity<Cart>(entity =>

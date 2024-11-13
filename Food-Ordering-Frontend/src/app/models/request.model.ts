@@ -17,3 +17,9 @@ export interface CartItemCreateRequestType{
     dishId:string, 
     quantity:number
 }
+export interface ReviewCreateRequestType{
+    reviewText:string, 
+    rating:number, 
+    restaurantId:string, 
+    parentReviewId:null|string, 
+}

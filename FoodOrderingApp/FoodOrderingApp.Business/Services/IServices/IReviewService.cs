@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodOrderingApp.Business.Dtos.Request;
+using FoodOrderingApp.Business.Dtos.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace FoodOrderingApp.Business.Services.IServices
 {
     public interface IReviewService
     {
+        Task<ReviewGetResponseDto> AddReviewAsync(ReviewPostRequestDto reviewRequest, string userId);
     }
 }

@@ -65,6 +65,22 @@ namespace FoodOrderingApp.Business.Dtos.Response
                     this.Orders.Add(new OrderGetResponseDto(order));
                 }
             }
+            if(restaurant.Reviews != null)
+            {
+                foreach(var review in restaurant.Reviews)
+                {
+                    var reviewToAdd = new ReviewGetResponseDto(review);
+                    //if (review.ChildReviews != null)
+                    //{
+                    //    foreach(var childReview in review.ChildReviews)
+                    //    {
+                    //       reviewToAdd.ChildReviews.Add(new ReviewGetResponseDto(childReview));
+                    //    }
+                    //}
+
+                    this.Reviews.Add(reviewToAdd);
+                }
+            }
         }
     }
 }

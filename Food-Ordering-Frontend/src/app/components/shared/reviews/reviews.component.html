@@ -1,1 +1,70 @@
-<p>reviews works!</p>
+<div class="mt-3 mb-4">
+    <h3 class="mb-3"> Reviews</h3>
+    <div *ngFor="let review of reviews" class=" border border-2 p-3 rounded-3 ">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <div>
+                <div class="d-flex flex-row">
+                    <i class="fa-solid fs-1 fa-circle-user"></i>
+                    <p class="ms-2"><strong>{{review.customer.name}}</strong></p>
+                </div>
+                <div class="d-flex flex-row my-2">
+                    <i *ngFor="let star of [].constructor(5); let index = index" class="fa-star"
+                        [ngClass]="index < review.rating ? 'fa-solid' : 'fa-regular'">
+                    </i>
+                </div>
+                <p class="my-2">{{review.reviewText}}</p>
+            </div>
+
+            <div *ngIf="isRestaurantOwner && review.childReviews && review.childReviews.length==0; " class="">
+                <button (click)="toggleReplyBox(review.id)" class="btn btn-outline-dark">Reply</button>
+            </div>
+        </div>
+        
+        <!-- show this when reply box is opened -->
+        <ng-container *ngIf="review.isReplyBoxOpen">
+            <div class="mx-5 d-flex flex-row">
+                <i class="fa-solid fs-2 fa-circle-user"></i>
+                <input class=" ms-2 form-control" type='text' placeholder="Write Your Reply"
+                    [(ngModel)]="review.replyText" />
+                <button class="btn btn-primary ms-2" (click)="handleReplySubmit(review.id)">Comment</button>
+            </div>
+        </ng-container>
+
+        <!-- show this when there are some child reviews to show -->
+        <ng-container *ngIf="review.childReviews !=null && review.childReviews.length>0">
+            <div *ngFor="let childReview of review.childReviews" class=" ms-5 border border-2 p-3 rounded-3 ">
+                <div>
+                    <div class="d-flex flex-row">
+                        <i class="fa-solid fs-1 fa-circle-user"></i>
+                        <p class="ms-2"><strong>{{childReview.customer.name}}</strong></p>
+                    </div>
+                    
+                    <p class="my-2">{{childReview.reviewText}}</p>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+    <!-- option to add review if user is Customer  -->
+    <div *ngIf="isCustomer" class="row mt-3  align-items-center">
+        <h3>Add Your Review</h3>
+        <div class="col-md-10 col-12 ">
+            <div class="d-flex flex-row">
+                <i class="fa-solid fs-2 fa-circle-user"></i>
+                <p class="ms-2"><strong>{{user?.name}}</strong></p>
+            </div>
+
+            <div class="d-flex flex-row my-2">
+                <i *ngFor="let star of [].constructor(5); let index = index" class="fa-star hover-hand"
+                    [ngClass]="index < customerStarRating ? 'fa-solid' : 'fa-regular'" (click)="setStarRating(index)">
+                </i>
+            </div>
+            <input class=" my-2 form-control" type='text' placeholder="Write Review" [(ngModel)]="customerReviewText" />
+        </div>
+
+        <div class="col-md-2 col-12 d-flex justify-content-center">
+            <button class="btn btn-primary ms-md-auto " (click)="addCustomerComment()">Comment</button>
+        </div>
+    </div>
+</div>
